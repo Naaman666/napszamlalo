@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Napszámláló</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      color: #e0e0e0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 40px 50px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+      text-align: center;
+      width: 100%;
+      max-width: 520px;
+    }
+
+    h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      font-size: 1.9rem;
+      margin-bottom: 30px;
+      letter-spacing: 2px;
+      color: #e94560;
+      text-shadow: 0 0 10px rgba(233, 69, 96, 0.4);
+    }
+
+    .display {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 900;
+      font-size: 5rem;
+      color: #00d9ff;
+      text-shadow: 0 0 20px rgba(0, 217, 255, 0.6);
+      margin: 20px 0 10px;
+      letter-spacing: 3px;
+      line-height: 1;
+    }
+
+    .display-label {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1rem;
+      letter-spacing: 4px;
+      color: #e0e0e0;
+      opacity: 0.8;
+      margin-bottom: 30px;
+      text-transform: uppercase;
+    }
+
+    .inputs {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin: 30px 0;
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+    }
+
+    .input-group label {
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      color: #a0a0c0;
+    }
+
+    .input-group input[type="date"] {
+      width: 100%;
+      padding: 12px 14px;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(0, 217, 255, 0.3);
+      border-radius: 10px;
+      color: #e0e0e0;
+      font-family: 'Roboto', sans-serif;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      color-scheme: dark;
+    }
+
+    .input-group input[type="date"]:focus {
+      border-color: #00d9ff;
+      box-shadow: 0 0 0 3px rgba(0, 217, 255, 0.15);
+    }
+
+    .buttons {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    button {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: 2px;
+      padding: 12px 28px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      text-transform: uppercase;
+      transition: transform 0.1s, box-shadow 0.2s, background 0.2s;
+    }
+
+    button:active {
+      transform: translateY(1px);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #e94560 0%, #c13651 100%);
+      color: #fff;
+      box-shadow: 0 4px 15px rgba(233, 69, 96, 0.4);
+    }
+
+    .btn-primary:hover {
+      box-shadow: 0 6px 20px rgba(233, 69, 96, 0.6);
+    }
+
+    .btn-secondary {
+      background: linear-gradient(135deg, #0f3460 0%, #16213e 100%);
+      color: #00d9ff;
+      border: 1px solid rgba(0, 217, 255, 0.4);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .btn-secondary:hover {
+      box-shadow: 0 6px 20px rgba(0, 217, 255, 0.2);
+    }
+
+    .message {
+      margin-top: 20px;
+      padding: 12px;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      min-height: 1.2em;
+    }
+
+    .message.error {
+      background: rgba(233, 69, 96, 0.15);
+      border: 1px solid rgba(233, 69, 96, 0.4);
+      color: #ff6b81;
+    }
+
+    .message.info {
+      background: rgba(0, 217, 255, 0.08);
+      border: 1px solid rgba(0, 217, 255, 0.25);
+      color: #a0e8ff;
+    }
+
+    .footer {
+      margin-top: 25px;
+      font-size: 0.8rem;
+      color: #8080a0;
+      letter-spacing: 1px;
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 30px 25px;
+      }
+      h1 {
+        font-size: 1.4rem;
+      }
+      .display {
+        font-size: 3.6rem;
+      }
+      button {
+        padding: 10px 20px;
+        font-size: 0.85rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Napszámláló</h1>
+
+    <div class="display" id="dayCount">—</div>
+    <div class="display-label">. nap</div>
+
+    <div class="inputs">
+      <div class="input-group">
+        <label for="startDate">Kezdő dátum</label>
+        <input type="date" id="startDate" value="2025-12-01" />
+      </div>
+      <div class="input-group">
+        <label for="endDate">Záró dátum</label>
+        <input type="date" id="endDate" />
+      </div>
+    </div>
+
+    <div class="buttons">
+      <button class="btn-primary" id="calcBtn">Számol</button>
+      <button class="btn-secondary" id="refreshBtn">Frissít</button>
+    </div>
+
+    <div class="message info" id="message"></div>
+
+    <div class="footer" id="dateInfo"></div>
+  </div>
+
+  <script>
+    const startInput = document.getElementById('startDate');
+    const endInput = document.getElementById('endDate');
+    const dayCountEl = document.getElementById('dayCount');
+    const messageEl = document.getElementById('message');
+    const dateInfoEl = document.getElementById('dateInfo');
+    const calcBtn = document.getElementById('calcBtn');
+    const refreshBtn = document.getElementById('refreshBtn');
+
+    const DEFAULT_START = '2025-12-01';
+
+    function todayISO() {
+      const d = new Date();
+      const y = d.getFullYear();
+      const m = String(d.getMonth() + 1).padStart(2, '0');
+      const day = String(d.getDate()).padStart(2, '0');
+      return `${y}-${m}-${day}`;
+    }
+
+    function parseDate(iso) {
+      // Parse as local date (no timezone shifts)
+      const [y, m, d] = iso.split('-').map(Number);
+      return new Date(y, m - 1, d);
+    }
+
+    function formatHU(iso) {
+      const d = parseDate(iso);
+      return `${d.getFullYear()}. ${String(d.getMonth() + 1).padStart(2, '0')}. ${String(d.getDate()).padStart(2, '0')}.`;
+    }
+
+    function showMessage(text, type) {
+      messageEl.textContent = text;
+      messageEl.className = 'message ' + (type || 'info');
+    }
+
+    function calculate() {
+      const startVal = startInput.value || DEFAULT_START;
+      const endVal = endInput.value || todayISO();
+
+      const start = parseDate(startVal);
+      const end = parseDate(endVal);
+
+      if (isNaN(start) || isNaN(end)) {
+        dayCountEl.textContent = '—';
+        showMessage('Érvénytelen dátum.', 'error');
+        dateInfoEl.textContent = '';
+        return;
+      }
+
+      if (end < start) {
+        dayCountEl.textContent = '—';
+        showMessage('Hiba: a záró dátum korábbi, mint a kezdő dátum!', 'error');
+        dateInfoEl.textContent = '';
+        return;
+      }
+
+      const msPerDay = 24 * 60 * 60 * 1000;
+      const diff = Math.round((end - start) / msPerDay) + 1; // inclusive
+
+      dayCountEl.textContent = diff;
+      showMessage(`${diff} nap telt el a kezdő naptól a záró napig (inkluzív).`, 'info');
+      dateInfoEl.textContent = `${formatHU(startVal)}  →  ${formatHU(endVal)}`;
+    }
+
+    // Init
+    endInput.value = todayISO();
+    calculate();
+
+    calcBtn.addEventListener('click', calculate);
+    refreshBtn.addEventListener('click', () => location.reload());
+    startInput.addEventListener('change', calculate);
+    endInput.addEventListener('change', calculate);
+  </script>
+</body>
+</html>
