@@ -77,6 +77,10 @@ Theme state is stored under the key `napszamlalo-theme` as JSON:
 | Change fonts | Update the Google Fonts `<link>` URL and the `font-family` CSS variables |
 | Add a new language | All user-facing strings are in the HTML; search for Hungarian text to find them |
 
+## General Behavior Rules
+
+- **Ha menüpontot keresel (bármely UI-ban, pl. GitHub, szoftverek):** mindig keress rá a weben (`WebSearch`), hogy az adott menüpont valójában hol helyezkedik el. Ne tippelj, ne a régi memóriádra hagyatkozz – a felületek változnak.
+
 ## Testing
 
 There is no automated test suite. Manual testing checklist:
