@@ -16,12 +16,14 @@ Egyszerű, böngészőben futó webalkalmazás, amely két dátum között eltel
 
 Nyisd meg az `index.html` fájlt bármilyen modern böngészőben. Nincs szükség szerverre, telepítésre vagy build folyamatra.
 
-```bash
 # Klónozás
+```bash
 git clone https://github.com/naaman666/napszamlalo.git
 cd napszamlalo
 
-# Megnyitás böngészőben
+```
+## Megnyitás böngészőben
+```bash
 open index.html        # macOS
 xdg-open index.html    # Linux
 start index.html       # Windows
