@@ -20,7 +20,7 @@
 
     /* ---------- THEME TOKENS ---------- */
     :root,
-    [data-theme="default"] {
+    [data-theme="default-dark"] {
       --bg: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
       --container-bg: rgba(255, 255, 255, 0.05);
       --container-border: rgba(255, 255, 255, 0.1);
@@ -49,6 +49,37 @@
       --info-border: rgba(0, 217, 255, 0.25);
       --info-color: #a0e8ff;
       --color-scheme: dark;
+    }
+
+    [data-theme="default-light"] {
+      --bg: linear-gradient(135deg, #f5f7fb 0%, #e8edf6 50%, #dde6f2 100%);
+      --container-bg: #ffffff;
+      --container-border: rgba(0, 0, 0, 0.06);
+      --container-shadow: 0 8px 32px rgba(15, 52, 96, 0.10);
+      --text: #1f2333;
+      --muted: #6b7280;
+      --footer: #8b95a8;
+      --title: #e94560;
+      --title-glow: rgba(233, 69, 96, 0);
+      --accent: #0891b2;
+      --accent-soft: rgba(8, 145, 178, 0.12);
+      --accent-border: rgba(8, 145, 178, 0.35);
+      --display-color: #0891b2;
+      --display-glow: rgba(8, 145, 178, 0);
+      --input-bg: #f1f5f9;
+      --primary-bg: linear-gradient(135deg, #e94560 0%, #c13651 100%);
+      --primary-color: #fff;
+      --primary-shadow: rgba(233, 69, 96, 0.28);
+      --secondary-bg: #ecfbff;
+      --secondary-color: #0891b2;
+      --secondary-border: rgba(8, 145, 178, 0.40);
+      --error-bg: #fdecef;
+      --error-border: rgba(193, 54, 81, 0.30);
+      --error-color: #b33148;
+      --info-bg: #ecfbff;
+      --info-border: rgba(8, 145, 178, 0.22);
+      --info-color: #0a6781;
+      --color-scheme: light;
     }
 
     [data-theme="purple-dark"] {
@@ -432,7 +463,7 @@
     }
   </style>
 </head>
-<body data-theme="default">
+<body data-theme="default-dark">
   <div class="container">
     <div class="theme-bar">
       <div class="swatches">
@@ -500,12 +531,7 @@
     let theme = loadTheme();
 
     function applyTheme() {
-      let name;
-      if (theme.color === 'default') {
-        name = 'default';
-      } else {
-        name = `${theme.color}-${theme.mode}`;
-      }
+      const name = `${theme.color}-${theme.mode}`;
       body.setAttribute('data-theme', name);
 
       // Swatch active state
@@ -513,9 +539,8 @@
         s.classList.toggle('active', s.dataset.color === theme.color);
       });
 
-      // Mode toggle label
-      modeBtn.textContent = theme.mode === 'dark' ? 'Sötét' : 'Világos';
-      modeBtn.style.display = theme.color === 'default' ? 'none' : '';
+      // Mode toggle label shows the target mode (what you'll switch TO)
+      modeBtn.textContent = theme.mode === 'dark' ? 'Világos' : 'Sötét';
     }
 
     swatches.forEach(s => {
