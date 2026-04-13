@@ -6,7 +6,7 @@
   <title>Napszámláló</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     * {
       box-sizing: border-box;
@@ -18,65 +18,298 @@
       height: 100%;
     }
 
+    /* ---------- THEME TOKENS ---------- */
+    :root,
+    [data-theme="default"] {
+      --bg: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      --container-bg: rgba(255, 255, 255, 0.05);
+      --container-border: rgba(255, 255, 255, 0.1);
+      --container-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+      --text: #e0e0e0;
+      --muted: #a0a0c0;
+      --footer: #8080a0;
+      --title: #e94560;
+      --title-glow: rgba(233, 69, 96, 0.4);
+      --accent: #00d9ff;
+      --accent-soft: rgba(0, 217, 255, 0.15);
+      --accent-border: rgba(0, 217, 255, 0.3);
+      --display-color: #00d9ff;
+      --display-glow: rgba(0, 217, 255, 0.6);
+      --input-bg: rgba(0, 0, 0, 0.3);
+      --primary-bg: linear-gradient(135deg, #e94560 0%, #c13651 100%);
+      --primary-color: #fff;
+      --primary-shadow: rgba(233, 69, 96, 0.4);
+      --secondary-bg: linear-gradient(135deg, #0f3460 0%, #16213e 100%);
+      --secondary-color: #00d9ff;
+      --secondary-border: rgba(0, 217, 255, 0.4);
+      --error-bg: rgba(233, 69, 96, 0.15);
+      --error-border: rgba(233, 69, 96, 0.4);
+      --error-color: #ff6b81;
+      --info-bg: rgba(0, 217, 255, 0.08);
+      --info-border: rgba(0, 217, 255, 0.25);
+      --info-color: #a0e8ff;
+      --color-scheme: dark;
+    }
+
+    [data-theme="purple-dark"] {
+      --bg: #0f0f17;
+      --container-bg: rgba(255, 255, 255, 0.04);
+      --container-border: rgba(255, 255, 255, 0.08);
+      --container-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+      --text: #e8e8f0;
+      --muted: #9b9bb0;
+      --footer: #6f6f88;
+      --title: #8b7cf0;
+      --title-glow: rgba(139, 124, 240, 0.35);
+      --accent: #8b7cf0;
+      --accent-soft: rgba(139, 124, 240, 0.18);
+      --accent-border: rgba(139, 124, 240, 0.45);
+      --display-color: #8b7cf0;
+      --display-glow: rgba(139, 124, 240, 0.0);
+      --input-bg: rgba(255, 255, 255, 0.03);
+      --primary-bg: #7d6cef;
+      --primary-color: #fff;
+      --primary-shadow: rgba(125, 108, 239, 0.35);
+      --secondary-bg: transparent;
+      --secondary-color: #8b7cf0;
+      --secondary-border: rgba(139, 124, 240, 0.55);
+      --error-bg: rgba(233, 69, 96, 0.15);
+      --error-border: rgba(233, 69, 96, 0.4);
+      --error-color: #ff8095;
+      --info-bg: rgba(139, 124, 240, 0.08);
+      --info-border: rgba(139, 124, 240, 0.25);
+      --info-color: #cdc4f7;
+      --color-scheme: dark;
+    }
+
+    [data-theme="purple-light"] {
+      --bg: #ececf2;
+      --container-bg: #ffffff;
+      --container-border: rgba(0, 0, 0, 0.06);
+      --container-shadow: 0 8px 32px rgba(60, 50, 120, 0.10);
+      --text: #2a2a3a;
+      --muted: #6f6f88;
+      --footer: #9090a8;
+      --title: #6a55ea;
+      --title-glow: rgba(106, 85, 234, 0);
+      --accent: #6a55ea;
+      --accent-soft: rgba(106, 85, 234, 0.12);
+      --accent-border: rgba(106, 85, 234, 0.35);
+      --display-color: #6a55ea;
+      --display-glow: rgba(106, 85, 234, 0);
+      --input-bg: #f3f1fb;
+      --primary-bg: #6a55ea;
+      --primary-color: #fff;
+      --primary-shadow: rgba(106, 85, 234, 0.30);
+      --secondary-bg: #f3f1fb;
+      --secondary-color: #6a55ea;
+      --secondary-border: rgba(106, 85, 234, 0.40);
+      --error-bg: #fdecef;
+      --error-border: rgba(193, 54, 81, 0.30);
+      --error-color: #b33148;
+      --info-bg: #f1eefb;
+      --info-border: rgba(106, 85, 234, 0.20);
+      --info-color: #4a3bb5;
+      --color-scheme: light;
+    }
+
+    [data-theme="green-dark"] {
+      --bg: #0f0f17;
+      --container-bg: rgba(255, 255, 255, 0.04);
+      --container-border: rgba(255, 255, 255, 0.08);
+      --container-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+      --text: #e8f0e8;
+      --muted: #9bb09b;
+      --footer: #6f886f;
+      --title: #22c55e;
+      --title-glow: rgba(34, 197, 94, 0.35);
+      --accent: #22c55e;
+      --accent-soft: rgba(34, 197, 94, 0.18);
+      --accent-border: rgba(34, 197, 94, 0.45);
+      --display-color: #22c55e;
+      --display-glow: rgba(34, 197, 94, 0);
+      --input-bg: rgba(255, 255, 255, 0.03);
+      --primary-bg: #22c55e;
+      --primary-color: #fff;
+      --primary-shadow: rgba(34, 197, 94, 0.35);
+      --secondary-bg: transparent;
+      --secondary-color: #22c55e;
+      --secondary-border: rgba(34, 197, 94, 0.55);
+      --error-bg: rgba(233, 69, 96, 0.15);
+      --error-border: rgba(233, 69, 96, 0.4);
+      --error-color: #ff8095;
+      --info-bg: rgba(34, 197, 94, 0.08);
+      --info-border: rgba(34, 197, 94, 0.25);
+      --info-color: #b6e8c4;
+      --color-scheme: dark;
+    }
+
+    [data-theme="green-light"] {
+      --bg: #ececf2;
+      --container-bg: #ffffff;
+      --container-border: rgba(0, 0, 0, 0.06);
+      --container-shadow: 0 8px 32px rgba(20, 80, 50, 0.10);
+      --text: #1f2a25;
+      --muted: #6f886f;
+      --footer: #90a89a;
+      --title: #16a34a;
+      --title-glow: rgba(22, 163, 74, 0);
+      --accent: #16a34a;
+      --accent-soft: rgba(22, 163, 74, 0.12);
+      --accent-border: rgba(22, 163, 74, 0.35);
+      --display-color: #16a34a;
+      --display-glow: rgba(22, 163, 74, 0);
+      --input-bg: #effaf2;
+      --primary-bg: #16a34a;
+      --primary-color: #fff;
+      --primary-shadow: rgba(22, 163, 74, 0.30);
+      --secondary-bg: #effaf2;
+      --secondary-color: #16a34a;
+      --secondary-border: rgba(22, 163, 74, 0.40);
+      --error-bg: #fdecef;
+      --error-border: rgba(193, 54, 81, 0.30);
+      --error-color: #b33148;
+      --info-bg: #effaf2;
+      --info-border: rgba(22, 163, 74, 0.20);
+      --info-color: #176c3a;
+      --color-scheme: light;
+    }
+
     body {
-      font-family: 'Roboto', sans-serif;
-      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-      color: #e0e0e0;
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 20px;
+      padding: 16px;
+      transition: background 0.3s ease, color 0.3s ease;
     }
 
     .container {
-      background: rgba(255, 255, 255, 0.05);
+      background: var(--container-bg);
       backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid var(--container-border);
       border-radius: 20px;
-      padding: 40px 50px;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+      padding: 28px 28px 32px;
+      box-shadow: var(--container-shadow);
       text-align: center;
       width: 100%;
       max-width: 520px;
+      transition: background 0.3s ease, border-color 0.3s ease;
     }
 
-    h1 {
-      font-family: 'Orbitron', sans-serif;
+    /* ---------- THEME BAR ---------- */
+    .theme-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .swatches {
+      display: flex;
+      gap: 10px;
+    }
+
+    .swatch {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      border: 2px solid transparent;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
       font-weight: 700;
-      font-size: 1.9rem;
-      margin-bottom: 30px;
-      letter-spacing: 2px;
+      font-size: 1rem;
+      transition: transform 0.15s ease, border-color 0.2s ease;
+      padding: 0;
+    }
+
+    .swatch:hover { transform: translateY(-1px); }
+
+    .swatch[data-color="purple"] { background: #7d6cef; }
+    .swatch[data-color="green"]  { background: #22c55e; }
+
+    .swatch.active[data-color="purple"] { border-color: #7d6cef; box-shadow: 0 0 0 2px var(--container-bg) inset; }
+    .swatch.active[data-color="green"]  { border-color: #22c55e; box-shadow: 0 0 0 2px var(--container-bg) inset; }
+
+    .swatch .check { display: none; line-height: 1; }
+    .swatch.active .check { display: inline; }
+
+    .theme-toggles {
+      display: flex;
+      gap: 8px;
+    }
+
+    .pill {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 0.82rem;
+      padding: 7px 14px;
+      border-radius: 999px;
+      border: 1.5px solid var(--accent-border);
+      background: transparent;
+      color: var(--text);
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+    }
+
+    .pill.default-pill {
+      border-color: #e94560;
       color: #e94560;
-      text-shadow: 0 0 10px rgba(233, 69, 96, 0.4);
+    }
+
+    .pill.mode-pill {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .pill:hover { background: var(--accent-soft); }
+
+    /* ---------- CONTENT ---------- */
+    h1 {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      font-size: 1.7rem;
+      margin-bottom: 24px;
+      letter-spacing: 1px;
+      color: var(--title);
+      text-shadow: 0 0 10px var(--title-glow);
     }
 
     .display {
-      font-family: 'Orbitron', sans-serif;
-      font-weight: 900;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 800;
       font-size: 5rem;
-      color: #00d9ff;
-      text-shadow: 0 0 20px rgba(0, 217, 255, 0.6);
-      margin: 20px 0 10px;
-      letter-spacing: 3px;
+      color: var(--display-color);
+      text-shadow: 0 0 20px var(--display-glow);
+      margin: 12px 0 6px;
+      letter-spacing: 2px;
       line-height: 1;
+      word-break: break-all;
     }
 
     .display-label {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 1rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.95rem;
+      font-weight: 500;
       letter-spacing: 4px;
-      color: #e0e0e0;
-      opacity: 0.8;
-      margin-bottom: 30px;
+      color: var(--muted);
+      margin-bottom: 24px;
       text-transform: uppercase;
     }
 
     .inputs {
       display: flex;
       flex-direction: column;
-      gap: 16px;
-      margin: 30px 0;
+      gap: 14px;
+      margin: 24px 0;
     }
 
     .input-group {
@@ -84,33 +317,41 @@
       flex-direction: column;
       align-items: flex-start;
       text-align: left;
+      min-width: 0;
     }
 
     .input-group label {
-      font-size: 0.85rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      font-weight: 500;
       letter-spacing: 1px;
       text-transform: uppercase;
       margin-bottom: 6px;
-      color: #a0a0c0;
+      color: var(--muted);
     }
 
     .input-group input[type="date"] {
+      display: block;
       width: 100%;
+      min-width: 0;
+      max-width: 100%;
       padding: 12px 14px;
-      background: rgba(0, 0, 0, 0.3);
-      border: 1px solid rgba(0, 217, 255, 0.3);
+      background: var(--input-bg);
+      border: 1px solid var(--accent-border);
       border-radius: 10px;
-      color: #e0e0e0;
-      font-family: 'Roboto', sans-serif;
+      color: var(--text);
+      font-family: 'JetBrains Mono', monospace;
       font-size: 1rem;
       outline: none;
       transition: border-color 0.2s, box-shadow 0.2s;
-      color-scheme: dark;
+      color-scheme: var(--color-scheme);
+      -webkit-appearance: none;
+      appearance: none;
     }
 
     .input-group input[type="date"]:focus {
-      border-color: #00d9ff;
-      box-shadow: 0 0 0 3px rgba(0, 217, 255, 0.15);
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-soft);
     }
 
     .buttons {
@@ -118,15 +359,15 @@
       gap: 12px;
       justify-content: center;
       flex-wrap: wrap;
-      margin-top: 20px;
+      margin-top: 16px;
     }
 
-    button {
-      font-family: 'Orbitron', sans-serif;
+    button.action {
+      font-family: 'JetBrains Mono', monospace;
       font-weight: 700;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       letter-spacing: 2px;
-      padding: 12px 28px;
+      padding: 12px 26px;
       border: none;
       border-radius: 10px;
       cursor: pointer;
@@ -134,30 +375,23 @@
       transition: transform 0.1s, box-shadow 0.2s, background 0.2s;
     }
 
-    button:active {
-      transform: translateY(1px);
-    }
+    button.action:active { transform: translateY(1px); }
 
     .btn-primary {
-      background: linear-gradient(135deg, #e94560 0%, #c13651 100%);
-      color: #fff;
-      box-shadow: 0 4px 15px rgba(233, 69, 96, 0.4);
+      background: var(--primary-bg);
+      color: var(--primary-color);
+      box-shadow: 0 4px 15px var(--primary-shadow);
     }
 
-    .btn-primary:hover {
-      box-shadow: 0 6px 20px rgba(233, 69, 96, 0.6);
-    }
+    .btn-primary:hover { box-shadow: 0 6px 20px var(--primary-shadow); }
 
     .btn-secondary {
-      background: linear-gradient(135deg, #0f3460 0%, #16213e 100%);
-      color: #00d9ff;
-      border: 1px solid rgba(0, 217, 255, 0.4);
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      background: var(--secondary-bg);
+      color: var(--secondary-color);
+      border: 1px solid var(--secondary-border);
     }
 
-    .btn-secondary:hover {
-      box-shadow: 0 6px 20px rgba(0, 217, 255, 0.2);
-    }
+    .btn-secondary:hover { background: var(--accent-soft); }
 
     .message {
       margin-top: 20px;
@@ -165,46 +399,56 @@
       border-radius: 10px;
       font-size: 0.95rem;
       min-height: 1.2em;
+      font-family: 'Inter', sans-serif;
     }
 
     .message.error {
-      background: rgba(233, 69, 96, 0.15);
-      border: 1px solid rgba(233, 69, 96, 0.4);
-      color: #ff6b81;
+      background: var(--error-bg);
+      border: 1px solid var(--error-border);
+      color: var(--error-color);
     }
 
     .message.info {
-      background: rgba(0, 217, 255, 0.08);
-      border: 1px solid rgba(0, 217, 255, 0.25);
-      color: #a0e8ff;
+      background: var(--info-bg);
+      border: 1px solid var(--info-border);
+      color: var(--info-color);
     }
 
     .footer {
-      margin-top: 25px;
+      margin-top: 22px;
+      font-family: 'JetBrains Mono', monospace;
       font-size: 0.8rem;
-      color: #8080a0;
+      color: var(--footer);
       letter-spacing: 1px;
     }
 
     @media (max-width: 480px) {
-      .container {
-        padding: 30px 25px;
-      }
-      h1 {
-        font-size: 1.4rem;
-      }
-      .display {
-        font-size: 3.6rem;
-      }
-      button {
-        padding: 10px 20px;
-        font-size: 0.85rem;
-      }
+      .container { padding: 22px 18px 26px; }
+      h1 { font-size: 1.3rem; }
+      .display { font-size: 3.6rem; }
+      button.action { padding: 10px 18px; font-size: 0.82rem; }
+      .pill { padding: 6px 11px; font-size: 0.75rem; }
+      .swatch { width: 32px; height: 32px; }
     }
   </style>
 </head>
-<body>
+<body data-theme="default">
   <div class="container">
+    <div class="theme-bar">
+      <div class="swatches">
+        <button class="swatch" data-color="purple" aria-label="Lila téma">
+          <span class="check">✓</span>
+        </button>
+        <button class="swatch" data-color="green" aria-label="Zöld téma">
+          <span class="check">✓</span>
+        </button>
+      </div>
+      <div class="theme-toggles">
+        <button class="pill default-pill" id="defaultBtn">Default</button>
+        <button class="pill mode-pill" id="modeBtn">Sötét</button>
+      </div>
+    </div>
+
     <h1>Napszámláló</h1>
 
     <div class="display" id="dayCount">—</div>
@@ -222,8 +466,8 @@
     </div>
 
     <div class="buttons">
-      <button class="btn-primary" id="calcBtn">Számol</button>
-      <button class="btn-secondary" id="refreshBtn">Frissít</button>
+      <button class="action btn-primary" id="calcBtn">Számol</button>
+      <button class="action btn-secondary" id="refreshBtn">Frissít</button>
     </div>
 
     <div class="message info" id="message"></div>
@@ -232,6 +476,73 @@
   </div>
 
   <script>
+    /* ---------- THEME ---------- */
+    const body = document.body;
+    const defaultBtn = document.getElementById('defaultBtn');
+    const modeBtn = document.getElementById('modeBtn');
+    const swatches = document.querySelectorAll('.swatch');
+
+    // state: { color: 'default'|'purple'|'green', mode: 'dark'|'light' }
+    const STORAGE_KEY = 'napszamlalo-theme';
+
+    function loadTheme() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) return JSON.parse(raw);
+      } catch (e) {}
+      return { color: 'default', mode: 'dark' };
+    }
+
+    function saveTheme(t) {
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(t)); } catch (e) {}
+    }
+
+    let theme = loadTheme();
+
+    function applyTheme() {
+      let name;
+      if (theme.color === 'default') {
+        name = 'default';
+      } else {
+        name = `${theme.color}-${theme.mode}`;
+      }
+      body.setAttribute('data-theme', name);
+
+      // Swatch active state
+      swatches.forEach(s => {
+        s.classList.toggle('active', s.dataset.color === theme.color);
+      });
+
+      // Mode toggle label
+      modeBtn.textContent = theme.mode === 'dark' ? 'Sötét' : 'Világos';
+      modeBtn.style.display = theme.color === 'default' ? 'none' : '';
+    }
+
+    swatches.forEach(s => {
+      s.addEventListener('click', () => {
+        const c = s.dataset.color;
+        // toggle off if same color clicked again -> back to default
+        theme.color = (theme.color === c) ? 'default' : c;
+        saveTheme(theme);
+        applyTheme();
+      });
+    });
+
+    defaultBtn.addEventListener('click', () => {
+      theme = { color: 'default', mode: 'dark' };
+      saveTheme(theme);
+      applyTheme();
+    });
+
+    modeBtn.addEventListener('click', () => {
+      theme.mode = theme.mode === 'dark' ? 'light' : 'dark';
+      saveTheme(theme);
+      applyTheme();
+    });
+
+    applyTheme();
+
+    /* ---------- DAY COUNTER ---------- */
     const startInput = document.getElementById('startDate');
     const endInput = document.getElementById('endDate');
     const dayCountEl = document.getElementById('dayCount');
@@ -251,7 +562,6 @@
     }
 
     function parseDate(iso) {
-      // Parse as local date (no timezone shifts)
       const [y, m, d] = iso.split('-').map(Number);
       return new Date(y, m - 1, d);
     }
@@ -295,7 +605,6 @@
       dateInfoEl.textContent = `${formatHU(startVal)}  →  ${formatHU(endVal)}`;
     }
 
-    // Init
     endInput.value = todayISO();
     calculate();
 
