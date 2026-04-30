@@ -4,11 +4,11 @@ This file provides guidance to Claude when working with this repository.
 
 ## Project Overview
 
-Napszámláló — egyszerű, böngészőben futó eszköz, amely két dátum között eltelt napok számát számolja ki (mindkét végpont inkluzív). Magyar nyelvű felület, témaválasztás (3 szín × 2 mód), localStorage-ben tárolt beállítás. **Egyetlen `index.html` fájl, nulla függőség, nincs build, nincs csomagkezelő.**
+Napszámláló — a simple, browser-based tool that calculates the number of days between two dates (both endpoints inclusive). Hungarian UI, theme selection (3 colors × 2 modes), settings persisted in localStorage. **Single `index.html` file, zero dependencies, no build step, no package manager.**
 
 ## Development Setup
 
-Nincs telepítés. A fájl közvetlenül megnyitható:
+No installation needed. Open the file directly:
 
 ```bash
 xdg-open index.html    # Linux
@@ -18,22 +18,23 @@ start index.html       # Windows
 
 ## Common Commands
 
-Nincs build / teszt / lint pipeline. Manuális ellenőrzés a böngészőben.
+No build / test / lint pipeline. Manual verification in the browser.
 
 ## Code Style
 
-- Egyetlen fájl, vanilla HTML5 + CSS + JS. Új függőséget, build lépést, transpilert ne vezess be.
-- A kódot kicsi, fókuszált függvényekre tagold; csak akkor írj kommentet, ha a logika nem önmagyarázó.
-- Ne adj hozzá felesleges error handlinget, loggingot vagy absztrakciót.
+- Single file, vanilla HTML5 + CSS + JS. Do not introduce new dependencies, build steps, or transpilers.
+- Structure code into small, focused functions; only add comments where the logic is non-obvious.
+- Do not add unnecessary error handling, logging, or abstractions.
 
 ## Architecture Notes
 
-- **Téma-rendszer:** `data-theme` attribútum a `<body>`-n + CSS custom property tokenek (`--bg`, `--text`, `--accent`, ...). Minden téma a 6 kombináció valamelyike (`{default,purple,green}-{dark,light}`). A perzisztálás `localStorage` kulcs: `napszamlalo-theme`.
-- **Dátumszámítás:** `Math.round((end - start) / msPerDay) + 1` — a kerekítés DST-átmenetet kompenzál, a `+1` az inkluzív végpontokat biztosítja. ISO bemenet (`YYYY-MM-DD`) → local-time Date.
-- **Külső erőforrás:** Google Fonts (JetBrains Mono, Inter). Hálózat nélkül a fontok visszaesnek a fallback `monospace` / `sans-serif` családra.
+- **Theme system:** `data-theme` attribute on `<body>` + CSS custom property tokens (`--bg`, `--text`, `--accent`, ...). Every theme is one of 6 combinations (`{default,purple,green}-{dark,light}`). Persistence uses localStorage key: `napszamlalo-theme`.
+- **Date calculation:** `Math.round((end - start) / msPerDay) + 1` — rounding compensates for DST transitions, `+1` ensures inclusive endpoints. ISO input (`YYYY-MM-DD`) → local-time Date.
+- **External resource:** Google Fonts (JetBrains Mono, Inter). Without network access the fonts fall back to `monospace` / `sans-serif`.
 
 ## Git Workflow
 
-- Csak két ág van: `develop` (aktív munka) és `main` (kiadások).
-- Minden commit a `develop`-ra megy. Soha ne pusholj közvetlenül `main`-re.
-- Ne hozz létre feature / topic / claude/* ágat — ha véletlenül egy ilyenen találod magad, lépj át `develop`-ra mielőtt commitolsz, és töröld a kósza ágat (lokálisan és remote-on).
+Only two persistent branches exist: `develop` (active work) and `main` (stable releases).
+
+- **Humans:** always commit directly to `develop`. Never commit or push to `main`. Do not create feature or topic branches.
+- **AI agents (Claude, Codex, etc.):** open pull requests from a short-lived `claude/*` or `codex/*` branch. The PR must always target `develop`, never `main`. The branch is deleted after merge.
