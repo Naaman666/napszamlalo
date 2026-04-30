@@ -6,7 +6,7 @@ Egyszerű, böngészőben futó webalkalmazás, amely két dátum között eltel
 
 - Napok számának kiszámítása két dátum között (inkluzív)
 - Alapértelmezett kezdődátum: 2025. december 1.
-- Alapértelmezett záródátum: mai nap (automatikusan frissül)
+- Alapértelmezett záródátum: mai nap (oldalbetöltéskor / a „Frissít" gombbal)
 - Témarendszer: 3 színséma × 2 mód (sötét/világos) = 6 kombináció
 - Téma mentése böngésző localStorage-ban
 - Reszponzív kialakítás (mobilon is működik)
@@ -16,11 +16,10 @@ Egyszerű, böngészőben futó webalkalmazás, amely két dátum között eltel
 
 Nyisd meg az `index.html` fájlt bármilyen modern böngészőben. Nincs szükség szerverre, telepítésre vagy build folyamatra.
 
-# Klónozás
+## Klónozás
 ```bash
 git clone https://github.com/naaman666/napszamlalo.git
 cd napszamlalo
-
 ```
 ## Megnyitás böngészőben
 ```bash
