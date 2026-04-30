@@ -1,6 +1,6 @@
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude when working with this repository.
+This file provides guidance to AI coding agents (e.g. ChatGPT Codex) when working with this repository.
 
 ## Project Overview
 
@@ -30,7 +30,6 @@ No build / test / lint pipeline. Manual verification in the browser.
 
 - **Theme system:** `data-theme` attribute on `<body>` + CSS custom property tokens (`--bg`, `--text`, `--accent`, ...). Every theme is one of 6 combinations (`{default,purple,green}-{dark,light}`). Persistence uses localStorage key: `napszamlalo-theme`.
 - **Date calculation:** `Math.round((end - start) / msPerDay) + 1` — rounding compensates for DST transitions, `+1` ensures inclusive endpoints. ISO input (`YYYY-MM-DD`) → local-time Date.
-
 - **External resource:** Google Fonts (JetBrains Mono, Inter). Without network access the fonts fall back to `monospace` / `sans-serif`.
 
 ## Git Workflow
